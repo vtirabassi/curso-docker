@@ -1,0 +1,65 @@
+O que é Docker?
+Não é um sistema de virtualização tradicional
+É uma engine de administracao de containers 
+Utiliza os servicos do LXC  (linux containers), precisa rodar containers baseados em linux
+Open Source, escrito em GO, sistema de virtualizacao baseado em software, o host e container compartilham o mesmo kernel
+Empacota software com varios niveis de isolamento (cpu, memoria, rede)
+
+O que sao Container?
+segregacao de processos no mesmo kernel (isolamento)
+sistemas de arquivo criados a partir de uma imagem
+ambiente leve e portatil no qual aplicacoes sao executadas
+encapsula os binarios e bibliotecas necessarias para execucao de um app
+
+O que sao imagens Docker?
+Modelo de sistema de arquivo para criar um container
+imagens sao criadas atraves de um processo chamado build (ou commit, mas nao é uma boa pratica)
+sao armazenados em repositorios no registry
+sao compostas por uma ou mais camadas (layers)
+uma camada representa uma ou mais mudanças no sistema de arquivos
+uma camada é tambem chamada de imagem intermediaria
+a juncao dessas camadas formam a imagem
+apenas a ultima camada pode ser alterada quando o container for iniciado
+o grande obj dessa estrategia de dividir uma imagem em camadas é o reuso
+é possivel compor imagens a o partir de camadas de outras imagens
+
+Container é o processo rodando no computador, a imagem é o modelo de sistema de arquivos somente leitura, usado para montar o container
+
+
+docker container run <img> --> cria um novo container
+docker container --name <nomedestino> -it <img> --> cria um novo container com nome destino e entra nele com a flag -it
+docker container ls --> lista os container exec
+docker container ls -a --> lista todos os container
+docker container start -ai <nomecontainer> --> start e entra no terminar do container
+docker container run -p <portal, ex: 8080:80> <img> --? mapea o container a uma porta especifica
+docker container run -p 8080:80 -v C:\Git\curso-docker\ex-volume\html:/usr/share/nginx/html nginx --> mapemento de volume para o container enxergar, <pastahost:pastamapeadacontainer>
+docker container run -d --name <name> -p 8080:80 -v <pastahost:pastamapeadacontainer> --> rodando container em modo daemon, background
+docker container run start <name> --> start container
+docker container run stop <name> --> stop container
+docker container logs <name> --> mostra logs do container
+docker container inspect <name> --> informacoes do container
+docker image ls --> lista todas as imagens
+docker volume ls --> lista todos os volumes criados
+docker image rm --> apaga image
+docker container rm --> apaga container
+dokcer image build -t <tagname>
+
+Tipos de rede
+None Network
+Bridge Network (padrao)
+Host Network
+Overlay Network
+
+docker network ls --> lista redes
+docker container run --net <tiporede> <img> --> cria container com base em uma rede
+
+docker network create --driver bridge <namerede> --> cria uma nova rede
+docker network connect <nomerede> <nome container> --> conecta o container em uma rede
+docker network disconnect <nomerede> <nome container> --> desconecta o container em uma rede
+
+docker-compose up
+docker-compose down
+
+docker-compose up -d --scale <namecontainer>=<nescalar>
+
+
